@@ -29,6 +29,8 @@ app.include_router(post_files.router, prefix="/files", tags=["files"])
 app.include_router(post_del_documents.router, prefix="/documents", tags=["documents"])
 app.include_router(sign.router, prefix="/sign-document", tags=["sign"])
 app.include_router(sse.router,prefix="/sse",tags=["sse"])
+app.include_router(chats.router,prefix="/chats",tags=["chats"])
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+
