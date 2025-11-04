@@ -44,5 +44,19 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
             detail="Invalid or expired token",
             headers={"WWW-Authenticate": "Bearer"},
         )
+def get_current_user_from_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: int = payload.get("id")
+        email: str = payload.get("sub")
+        role: str = payload.get("role")
+
+        if user_id is None or email is None or role is None:
+            raise ValueError("Invalid authentication payload")
+
+        return {"id": user_id, "email": email, "role": role}
+
+    except JWTError as e:
+        raise ValueError(f"Invalid or expired token: {str(e)}")
 
 
