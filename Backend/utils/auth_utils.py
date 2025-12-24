@@ -4,7 +4,7 @@ from passlib.context import CryptContext
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
-SECRET_KEY = "58ad90b5ec0cf2be9bf45dd33039f74f4cd947c766b480b988e9474562c4642c"
+SECRET_KEY = ""
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
 
@@ -57,4 +57,5 @@ def get_current_user_from_token(token: str):
         return {"id": user_id, "email": email, "role": role}
 
     except JWTError as e:
+
         raise ValueError(f"Invalid or expired token: {str(e)}")
